@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Chatroom</title>
+	
+	<!-- imports javascript -->
+	<script
+	src="https://code.jquery.com/jquery-3.3.1.js"
+	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous">
+</script>
+
+<!-- creates a function so that when a button is pressed, it is redirected to a temporary URL before being passed on to the unique chat url -->
+<script>
+	function generateChatroom(){
+		$(document).ready(function(){
+			$.get("/redirect", function(result){
+				console.log(result.room);
+				window.location = "/" + result.room;
+			});
+		});
+	}
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- begin css styling -->
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+	background-image: url("background.jpg");
+	background-repeat: repeat;
+	background-size: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: 'Open Sans';
+}	
+
+.button {
+	margin-top: 305px;
+	background-color: #d36a6e;
+	border: none;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 12px;
+	letter-spacing: 1px;
+	border: outset 5px #ba5e75;
+	cursor: pointer;
+}
+
+.button:hover {
+	border: inset 5px #ba5e75;
+}
+
+</style>
+</head>
+<body>
+	<!-- chatroom generation button -->
+	<button class="button" method="GET" action="/redirect" onClick="generateChatroom()" id="generateButton">generate new chatroom</button>
+</body>
+</html>

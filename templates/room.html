@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- displays title as room id -->
+	<title>Room {{roomName}}</title>
+
+	<!-- creates meta tag for name -->
+	<meta name="roomName" content="{{roomName}}">
+
+	<!-- imports jquery and room.js -->
+	<script
+	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="room.js"></script>
+
+</head>
+
+	<!-- begin css styling -->
+	<style>
+
+	@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+	body {
+		background-image: url("background.jpg");
+		background-repeat: repeat;
+		background-size: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-family: 'Open Sans';
+		display: flexbox;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	h1 {
+		font-size: 30px;
+		margin: 15px;
+		color: #fff;
+		letter-spacing: 3px;
+		text-shadow: 4px 4px #2f2853;
+		-webkit-transition: all 0.2s ease-in-out;
+		-moz-transition: all 0.2s ease-in-out;
+		-o-transition: all 0.2s ease-in-out;
+		transition: all 0.2s ease-in-out;
+	}
+
+	h1:hover {
+		letter-spacing: 5px;
+		-webkit-transition: all 0.2s ease-in-out;
+		-moz-transition: all 0.2s ease-in-out;
+		-o-transition: all 0.2s ease-in-out;
+		transition: all 0.2s ease-in-out;
+	}
+
+	.chatwrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.contentwrapper {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+	}
+
+	.chatbox {
+		width: 600px;
+		height: 500px;
+		overflow-y: scroll;
+		margin: 20px 0px;
+		background:rgba(255,255,255,0.3);
+		display: flex;
+		flex-direction: column;
+	}
+
+	#messages li {
+
+		display: flex;
+		border: solid 1px #d7797d;
+		height: auto;
+		flex-direction: column;
+		align-items: center;
+		background-color: #d36a6e;
+		padding: 10px;
+		border-radius: 10px;
+		color: #fff;
+		font-size: 12px;
+		list-style-type: none;
+		box-shadow: 2px 2px #5f3640;
+		margin-right: 25px;
+		margin-bottom: 15px;
+		word-wrap: break-word;
+	}
+
+	.memberbox {
+		width: 200px;
+		height: 660px;
+		overflow-y: scroll;
+		margin: 20px 0px;
+		background:rgba(255,255,255,0.3);
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		margin-right: 20px;
+	}
+
+	#members li {
+		width: 160px;
+		height: auto;
+		padding: 10px;
+		color: #fff;
+		font-size: 20px;
+		list-style-type: none;
+		word-wrap: break-word;
+	}
+	
+	.me {
+		margin-left: 290px;
+		width: 200px;
+	}
+
+	.others {
+		margin-left: 5px;
+		width: 200px;
+	}
+
+	.alerts {
+		margin-left: 80px;
+		width: 360px;
+		align-content: center;
+	}
+
+	#members li {
+		display: flex;
+		word-wrap: break-word;
+	}
+
+	#send, #change {
+		margin: 20px 6px;
+		width: 150px;
+		height: 34px;
+		color: #fff;
+		background-color: #d36a6e;
+		border: outset 5px #ba5e75;
+		transition: all 0.5s ease-in-out;
+	}
+
+	#send:hover, #change:hover {
+		cursor: pointer;
+		border: inset 5px #ba5e75;
+		transition: all 0.5s ease-in-out;
+	}
+
+	#newnicknameField, #messageField {
+		margin: 20 6px;
+		width: 400px;
+		height: 30px;
+	}
+
+	.footer {
+		width: 600px;
+		height: 140px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: #fff;
+		background:rgba(255,255,255,0.2);
+	}
+</style>
+
+
+<body>
+	<!-- displays the name of the room -->
+	<h1>chatroom {{roomName}}</h1>
+	
+	<div class="contentwrapper">
+		<div class="memberbox">
+			<!-- displays all members -->
+			<ul id="members"></ul>
+		</div>
+	
+	<div class="chatwrapper">
+	<div class="chatbox">
+		<!-- displays all messages -->
+		<ul id="messages"></ul>
+	</div>
+	
+<!-- displays form / input fields -->
+	<div class="footer">
+		<form id="messageForm">
+			<input type="text" name="message" id="messageField">
+			<input type="hidden" name="nickname" id="nicknameField" value="">
+			<input id="send" type="submit" value="send message">
+		</form>
+
+		<form id="nicknameForm">
+			<input type="text" name="newnickname" id="newnicknameField" value="">
+			<input id="change" type="submit" value="change nickname">
+		</form>
+	</div>
+</div>
+</div>
+</body>
+</html>
